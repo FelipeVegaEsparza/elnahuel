@@ -564,9 +564,11 @@ class AppTemplate extends TemplateBase {
 
     this._buildBars();
 
-    // Intenta análisis REAL con captureStream() — no redirige el audio,
-    // solo lo lee, así que NO rompe el sonido.
-    if (audio) this._tryRealAudio();
+    // NO crear el AudioContext acá: si lo creamos antes del primer
+    // gesto del usuario, queda en estado "suspended" y, como
+    // createMediaElementSource() secuestra la salida del <audio>,
+    // el audio se silencia. Se crea en _startVuMeter(), que se
+    // ejecuta en respuesta al click de play.
 
     if (window.ResizeObserver) {
       const ro = new ResizeObserver(() => {
@@ -795,6 +797,11 @@ class AppTemplate extends TemplateBase {
     // se siga oyendo. Si lo creábamos antes, quedaba en "suspended".
     if (v.mode === 'fake') {
       this._tryRealAudio();
+    }
+    // Garantizar que el context esté en "running" (si el browser lo
+    // dejó suspended por la política de autoplay, esto lo reanuda)
+    if (v.ctx && v.ctx.state !== 'running' && typeof v.ctx.resume === 'function') {
+      v.ctx.resume();
     }
 
     const tick = () => {

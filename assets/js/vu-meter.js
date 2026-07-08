@@ -82,7 +82,11 @@ export default class VuMeter {
     };
 
     this._buildBars();
-    if (audio) this._tryRealAudio();
+    // NO crear el AudioContext acá: si lo creamos antes del primer
+    // gesto del usuario, queda en estado "suspended" y, como
+    // createMediaElementSource() secuestra la salida del <audio>,
+    // el audio se silencia. El context se crea dentro de start(),
+    // que se ejecuta en respuesta al click de play.
 
     // Resize: recalcular barras y altura
     if (window.ResizeObserver) {
@@ -284,6 +288,11 @@ export default class VuMeter {
     // (así arranca en "running" state y el audio sigue sonando)
     if (this.s.mode === 'fake') {
       this._tryRealAudio();
+    }
+    // Garantizar que el context esté en "running" (si el browser lo
+    // dejó suspended por la política de autoplay, esto lo reanuda)
+    if (this.s.ctx && this.s.ctx.state !== 'running' && typeof this.s.ctx.resume === 'function') {
+      this.s.ctx.resume();
     }
 
     const tick = () => {
