@@ -85,9 +85,12 @@ class TemplateBase {
       const data = await this.dataManager.loadBasicData();
       
       // Actualizar logo
+      // NOTA: la API de ipstream devuelve los campos invertidos —
+      // `coverUrl` contiene el logo real y `logoUrl` contiene el
+      // cover/poster. Trabajamos con los valores como vienen.
       const logoElement = document.getElementById(this.domIds.radioLogo);
-      if (logoElement && data.logoUrl) {
-        const logoUrl = await this.dataManager.getImageUrl(data.logoUrl);
+      if (logoElement && data.coverUrl) {
+        const logoUrl = await this.dataManager.getImageUrl(data.coverUrl);
         logoElement.src = logoUrl;
         logoElement.style.display = 'block';
       }
@@ -105,10 +108,11 @@ class TemplateBase {
       }
       
       // Almacenar URL del cover de la radio para fallback
-      if (data.coverUrl) {
-        this._radioCoverUrl = await this.dataManager.getImageUrl(data.coverUrl);
-      } else if (data.logoUrl) {
+      // (mismo swap por la API invertida: el cover real viene en `logoUrl`)
+      if (data.logoUrl) {
         this._radioCoverUrl = await this.dataManager.getImageUrl(data.logoUrl);
+      } else if (data.coverUrl) {
+        this._radioCoverUrl = await this.dataManager.getImageUrl(data.coverUrl);
       }
 
       if (this._radioCoverUrl) {

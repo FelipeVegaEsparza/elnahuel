@@ -388,12 +388,12 @@ class BlueTemplate extends TemplateBase {
       const nameEl = document.getElementById('contact-radio-name');
       const descEl = document.getElementById('contact-radio-desc');
 
-      if (img && data.coverUrl) {
-        const dataManager = getDataManager();
-        img.src = await dataManager.getImageUrl(data.coverUrl);
-      } else if (img && data.logoUrl) {
+      if (img && data.logoUrl) {
         const dataManager = getDataManager();
         img.src = await dataManager.getImageUrl(data.logoUrl);
+      } else if (img && data.coverUrl) {
+        const dataManager = getDataManager();
+        img.src = await dataManager.getImageUrl(data.coverUrl);
       }
       if (nameEl) nameEl.textContent = data.projectName || data.name || 'Nuestra Radio';
       if (descEl) descEl.textContent = data.projectDescription || data.description || 'Estamos aquí para escucharte.';

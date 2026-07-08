@@ -67,13 +67,13 @@ class MetaUpdater {
     this.updateMetaTag('property', 'og:title', this.projectData.name);
     this.updateMetaTag('property', 'og:description', this.projectData.description);
     this.updateMetaTag('property', 'og:url', currentUrl);
-    this.updateMetaTag('property', 'og:image', this.projectData.coverUrl);
+    this.updateMetaTag('property', 'og:image', this.projectData.logoUrl);
     this.updateMetaTag('property', 'og:site_name', this.projectData.name);
 
     // Actualizar Twitter Card meta tags
     this.updateMetaTag('name', 'twitter:title', this.projectData.name);
     this.updateMetaTag('name', 'twitter:description', this.projectData.description);
-    this.updateMetaTag('name', 'twitter:image', this.projectData.coverUrl);
+    this.updateMetaTag('name', 'twitter:image', this.projectData.logoUrl);
 
     console.log('MetaUpdater: Meta tags updated successfully');
   }

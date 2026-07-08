@@ -977,8 +977,8 @@
             const response = await fetch(apiUrl);
             const data = await response.json();
             
-            if (data.logoUrl) {
-              this.updateLogo(`https://dashboard.ipstream.cl${data.logoUrl}`);
+            if (data.coverUrl) {
+              this.updateLogo(`https://dashboard.ipstream.cl${data.coverUrl}`);
               await this.delay(600);
             }
           } catch (apiError) {

@@ -1004,10 +1004,10 @@ class CoveredTemplate extends TemplateBase {
       const descEl = document.getElementById('about-radio-desc');
       const dm = getDataManager();
 
-      if (img && data.coverUrl) {
-        img.src = await dm.getImageUrl(data.coverUrl);
-      } else if (img && data.logoUrl) {
+      if (img && data.logoUrl) {
         img.src = await dm.getImageUrl(data.logoUrl);
+      } else if (img && data.coverUrl) {
+        img.src = await dm.getImageUrl(data.coverUrl);
       }
       if (titleEl) titleEl.textContent = data.projectName || data.name || 'Nuestra Radio';
       if (descEl) descEl.textContent = data.projectDescription || data.description || 'Bienvenido a nuestra radio. Disfruta de la mejor música y contenido.';
@@ -1075,10 +1075,10 @@ class CoveredTemplate extends TemplateBase {
       const descEl = document.getElementById('contact-radio-desc');
       const dm = getDataManager();
 
-      if (img && data.coverUrl) {
-        img.src = await dm.getImageUrl(data.coverUrl);
-      } else if (img && data.logoUrl) {
+      if (img && data.logoUrl) {
         img.src = await dm.getImageUrl(data.logoUrl);
+      } else if (img && data.coverUrl) {
+        img.src = await dm.getImageUrl(data.coverUrl);
       }
       if (nameEl) nameEl.textContent = data.projectName || data.name || 'Nuestra Radio';
       if (descEl) descEl.textContent = data.projectDescription || data.description || 'Estamos aquí para escucharte.';

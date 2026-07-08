@@ -508,8 +508,8 @@ class AppTemplate extends TemplateBase {
     import('/assets/js/api.js').then(({ getBasicData }) => {
       getBasicData().then(async data => {
         const dm2 = getDataManager();
-        if (img && data.coverUrl) img.src = await dm2.getImageUrl(data.coverUrl);
-        else if (img && data.logoUrl) img.src = await dm2.getImageUrl(data.logoUrl);
+        if (img && data.logoUrl) img.src = await dm2.getImageUrl(data.logoUrl);
+        else if (img && data.coverUrl) img.src = await dm2.getImageUrl(data.coverUrl);
         if (titleEl) titleEl.textContent = data.projectName || data.name || 'Nuestra Radio';
         if (descEl) descEl.textContent = data.projectDescription || data.description || '';
       }).catch(() => {});
